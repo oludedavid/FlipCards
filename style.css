@@ -1,0 +1,97 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Glory", sans-serif;
+}
+/*10px = 1rem*/
+.row {
+  max-width: 114rem; /*If the viewport width is less than the 114rem the width goes 100percent of the viewport width*/
+  margin: 0 auto; /*The trick used to center a div within a div*/
+  background-color: #f6d167;
+}
+
+.row:not(:last-child) {
+  /*The :not operator means select all child element except from the last child*/
+  margin-bottom: 8rem; /*8rem = 80px*/
+}
+
+/*Note: when the columns are floated the height of the row collapses we can fix this using the clear fix hack as show below..Without this hack the row would have zero height
+This would make the float work no matter if it is right or left floating*/
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*6rem would be the gutter or margin between the columns*/
+.col1 {
+  width: calc((100% - 6rem) / 2);
+  background-color: #df2e2e;
+  float: left;
+}
+
+.col1:not(:last-child) {
+  margin-right: 6rem;
+}
+/*Bulding a custom grid with 1 row and three columns. the gutter is 12rem because it involves 3 columns so there would be two margins needed 2 *6rem*/
+.col2 {
+  width: calc((100% - 12rem) / 3);
+  background-color: #e63e6d;
+  float: left;
+}
+
+.col2:not(:last-child) {
+  margin-right: 6rem;
+}
+
+/*Take note*/
+/*The attribute selector [] picks  an attribute and the value and attach a certain stlye e.g.
+ [class="col1"]{} or pick attribute vlaue that starts with a certain beginning word say "co" this is done with the symbol ^ .e.g. [class^= "co"]{} */
+
+.heading_secondary {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.section_tours {
+  align-items: center;
+  background-color: #297f87;
+  padding: 17rem 0 50rem 0;
+  margin-top: -20vh;
+}
+/*We would add a perspective property on the parent in which the rotation or transform occurs.
+we would add the mozilla perps because the property is not available in all browsers */
+.card{
+    position: relative;
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    height: 30rem;
+}
+.card_side{
+    height: 30rem;
+    transition: all 0.8s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backface-visibility:hidden;
+}
+.card_side.card_front{
+    background-color: #B1FFFD;
+    transform: rotateY(0deg)
+}
+
+.card_side.card_back{
+    color: #df2e2e;
+    background-color: rgb(198, 218, 19);
+    transform: rotateY(-180deg)  
+}
+
+.card:hover .card_side.card_back{
+    transform: rotateY(0);
+}
+
+ .card:hover .card_side.card_front {
+    transform: rotateY(180deg);
+}
